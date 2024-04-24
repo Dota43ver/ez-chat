@@ -22,7 +22,7 @@ const Chat = () => {
         <div className="icons">
           <img src="img.png" alt="" />
           <img src="camera.png" alt="" />
-          <img src="mic" alt="" />
+          <img src="mic.png" alt="" />
         </div>
         <input type="text" placeholder="Type a massage..." />
         <div className="emoji">
