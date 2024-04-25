@@ -30,6 +30,11 @@ const Chat = () => {
       <div className="center">
         <div className="message">
           <img src="avatar.png" alt="" />
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+          </div>
         </div>
       </div>
       <div className="bottom">
