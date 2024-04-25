@@ -73,6 +73,7 @@ const Chat = () => {
         </div>
         <div className="message own">
           <div className="texts">
+            <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
             </p>
