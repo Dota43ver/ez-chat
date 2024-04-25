@@ -34,6 +34,49 @@ const Chat = () => {
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
             </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message own">
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message">
+          <img src="avatar.png" alt="" />
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message own">
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message">
+          <img src="avatar.png" alt="" />
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message own">
+          <div className="texts">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium commodi placeat dolores repellat quia ab quas, labore esse rerum vitae dolor vel expedita quis quisquam sit in. Obcaecati, commodi accusamus.
+            </p>
+            <span>1 min ago</span>
           </div>
         </div>
       </div>
