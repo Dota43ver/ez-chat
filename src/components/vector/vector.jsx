@@ -10,7 +10,23 @@ const Detail = () => {
       </div>
       <div className="info">
         <div className="option">
-       
+          <div className="title">
+            <span>Chat Settings</span>
+            <img src="arrowUp.png" alt="" />
+          </div>
+        </div>
+        <div className="option">
+          <div className="title">
+            <span>Privacy & help</span>
+            <img src="arrowUp.png" alt="" />
+          </div>
+        </div>
+        <div className="option">
+          <div className="title">
+            <span>Shared photos</span>
+            <img src="arrowDown.png" alt="" />
+          </div>
+         
   )
 }
 
