@@ -1,6 +1,6 @@
 import "./addUser.css"
 
-const addUser = () => {
+const AddUser = () => {
   return (
     <div className='addUser'>
         <form>
@@ -18,4 +18,4 @@ const addUser = () => {
   )
 }
 
-export default addUser
+export default AddUser
