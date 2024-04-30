@@ -29,11 +29,32 @@ const Detail = () => {
           <div className="photos">
             <div className="photoItem">
               <div className="photoDetail">  
-              <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
-              <span>photo_2024_2.png</span>
+                <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
+                <span>photo_2024_2.png</span>
               </div>
+              <img src="./download.png" alt="" className="icon"/>
             </div>
-            <img src="./download.png" alt="" />
+            <div className="photoItem">
+              <div className="photoDetail">  
+                <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
+                <span>photo_2024_2.png</span>
+              </div>
+              <img src="./download.png" alt="" className="icon"/>
+            </div>
+            <div className="photoItem">
+              <div className="photoDetail">  
+                <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
+                <span>photo_2024_2.png</span>
+              </div>
+              <img src="./download.png" alt="" className="icon"/>
+            </div>
+            <div className="photoItem">
+              <div className="photoDetail">  
+                <img src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM=" alt="" />
+                <span>photo_2024_2.png</span>
+              </div>
+              <img src="./download.png" alt="" className="icon"/>
+            </div>
           </div>
         </div>
         <div className="option">
