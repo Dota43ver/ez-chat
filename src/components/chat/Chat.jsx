@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../lib/firebase"
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
+  const [chat, setChat] = useState(false);
   const [text, setText] = useState("");
 
   const endRef = useRef(null);
@@ -11,6 +14,18 @@ const Chat = () => {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
+
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", "TSw1B60XAqsIZ3D9kGog"), (res) =>{
+      setChat(res.data())
+    })
+
+    return () =>{
+      unSub()
+    }
+  },[])
+
+  console.log(chat)
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
