@@ -11,11 +11,16 @@ import {
 import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
+import upload from "../../lib/upload";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
   const [chat, setChat] = useState(false);
   const [text, setText] = useState("");
+  const [img, setImg] = useState({
+    file: null,
+    url: "",
+  });
   const { chatId, user } = useChatStore();
   const { currentUser } = useUserStore();
 
@@ -42,8 +47,23 @@ const Chat = () => {
     setOpen(false);
   };
 
+  const handleImg = (e) => {
+    if (e.target.files[0]) {
+      setImg({
+        file: e.target.files[0],
+        url: URL.createObjectURL(e.target.files[0]),
+      });
+    }
+  };
+
   const handleSend = async () => {
     if (text === "") return;
+
+    let imgUrl = null;
+
+    if (img.file) {
+      imgUrl = await upload(img.file);
+    }
 
     try {
       await updateDoc(doc(db, "chats", chatId), {
@@ -51,6 +71,7 @@ const Chat = () => {
           senderId: currentUser.id,
           text,
           createdAt: new Date(),
+          ...(imgUrl && { img: imgUrl }),
         }),
       });
 
@@ -80,6 +101,13 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
+
+    setImg({
+      file: null,
+      imgUrl: "",
+    });
+
+    setText("");
   };
 
   return (
@@ -114,7 +142,9 @@ const Chat = () => {
         {chat?.messages?.map((message) => {
           return (
             <div
-              className="message own"
+              className={
+                message.senderId === currentUser?.id ? "message own" : "message"
+              }
               key={message?.createdAt}>
               <div className="texts">
                 {message.img && (
@@ -129,14 +159,31 @@ const Chat = () => {
             </div>
           );
         })}
-
+        {img.url && (
+          <div className="message own">
+            <div className="text">
+              <img
+                src={img.url}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
         <div ref={endRef}></div>
       </div>
       <div className="bottom">
         <div className="icons">
-          <img
-            src="img.png"
-            alt=""
+          <label htmlFor="file">
+            <img
+              src="img.png"
+              alt=""
+            />
+          </label>
+          <input
+            type="file"
+            id="file"
+            style={{ display: "none" }}
+            onChange={handleImg}
           />
           <img
             src="camera.png"
