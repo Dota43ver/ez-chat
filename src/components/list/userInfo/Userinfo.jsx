@@ -13,7 +13,11 @@ const Userinfo = () => {
           alt=""
         />
         <h2>{currentUser.username}</h2>
-        <button onClick={() => auth.signOut()}>Logout</button>
+        <button
+          onClick={() => auth.signOut()}
+          className="but">
+          Logout
+        </button>
       </div>
       <div className="icons">
         <img

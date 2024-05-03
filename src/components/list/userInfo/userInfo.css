@@ -3,6 +3,14 @@ padding: 20px;
 display: flex;
 align-items: center;
 justify-content: space-between;
+.but{
+    background-color: #1a73e8;
+    padding: 10px;
+    color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+}
 .user{
     display: flex;
     align-items: center;
