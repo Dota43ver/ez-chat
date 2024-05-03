@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../lib/firebase"
+import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
   const [chat, setChat] = useState(false);
   const [text, setText] = useState("");
-  const {chatId} = useChatStore()
+  const { chatId } = useChatStore();
 
   const endRef = useRef(null);
 
@@ -18,16 +18,16 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    const unSub = onSnapshot(doc(db, "chats", chatId), (res) =>{
-      setChat(res.data())
-    })
+    const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setChat(res.data());
+    });
 
-    return () =>{
-      unSub()
-    }
-  },[chatId])
+    return () => {
+      unSub();
+    };
+  }, [chatId]);
 
-  console.log(chat)
+  console.log(chat);
 
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
@@ -63,88 +63,22 @@ const Chat = () => {
         </div>
       </div>
       <div className="center">
-        <div className="message">
-          <img
-            src="avatar.png"
-            alt=""
-          />
-          <div className="texts">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
+        { chat?.messages?.map(message =>{
+
+          <div className="message own" key={message?.createdAt}>
+            <div className="texts">
+              {message.img && <img
+                src={message.img}
+                alt=""
+                />}
+              <p>
+                {message.text}
+              </p>
+              {/*<span>1 min ago</span>*/}
+            </div>
           </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img
-            src="avatar.png"
-            alt=""
-          />
-          <div className="texts">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img
-            src="avatar.png"
-            alt=""
-          />
-          <div className="texts">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <img
-              src="https://media.istockphoto.com/id/1793397465/es/foto/de-remo.jpg?s=2048x2048&w=is&k=20&c=JaPmzn5BtA0Wu2Zj0aDP672lu6e9jjWTkTIks2ZYOpM="
-              alt=""
-            />
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Praesentium commodi placeat dolores repellat quia ab quas, labore
-              esse rerum vitae dolor vel expedita quis quisquam sit in.
-              Obcaecati, commodi accusamus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
+              })
+        }
         <div ref={endRef}></div>
       </div>
       <div className="bottom">
