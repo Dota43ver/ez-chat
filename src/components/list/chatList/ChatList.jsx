@@ -1,75 +1,109 @@
-import { useEffect, useState } from "react"
-import "./chatList.css"
-import AddUser from "./addUser/addUser"
-import {useUserStore} from "../../../lib/userStore"
-import { doc, getDoc, onSnapshot } from "firebase/firestore"
-import { db } from "../../../lib/firebase"
-import { useChatStore } from "../../../lib/chatStore"
+import { useEffect, useState } from "react";
+import "./chatList.css";
+import AddUser from "./addUser/addUser";
+import { useUserStore } from "../../../lib/userStore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+import { useChatStore } from "../../../lib/chatStore";
 
 const ChatList = () => {
-  const [addMode, setAddMode] = useState(false)
-  const [chats, setChats] = useState([])
-  const {currentUser} = useUserStore()
-  const { changeChat} = useChatStore()
+  const [addMode, setAddMode] = useState(false);
+  const [chats, setChats] = useState([]);
+  const { currentUser } = useUserStore();
+  const { chatId, changeChat } = useChatStore();
 
-  useEffect(()=>{
+  useEffect(() => {
+    const unSub = onSnapshot(
+      doc(db, "userchats", currentUser.id),
+      async (res) => {
+        const items = res.data().chats;
 
-    const unSub = onSnapshot(doc(db, "userchats", currentUser.id), async (res) => {
-      const items = res.data().chats
+        const promises = items.map(async (item) => {
+          const userDocRef = doc(db, "users", item.receiverId);
+          const userDocSnap = await getDoc(userDocRef);
 
-      const promises = items.map(async(item) =>{
-        const userDocRef = doc(db, "users", item.receiverId)
-        const userDocSnap = await getDoc(userDocRef)
+          const user = userDocSnap.data();
 
-        const user = userDocSnap.data()
+          return { ...item, user };
+        });
 
-        return {...item,user}
-      })
+        const chatData = await Promise.all(promises);
 
-      const chatData = await Promise.all(promises)
+        setChats(chatData.sort((a, b) => b.updatedAt - a.updatedAt));
+      }
+    );
 
-      setChats(chatData.sort((a,b)=>b.updatedAt - a.updatedAt))
+    return () => {
+      unSub();
+    };
+  }, [currentUser.id]);
 
-  });
+  const handleSelect = async (chat) => {
+    const userChats = chats.map((item) => {
+      const { user, ...rest } = item;
+      return rest;
+    });
 
-  return () =>{
-    unSub()
-  }
+    const chatIndex = userChats.findIndex(
+      (item) => item.chatId === chat.chatId
+    );
 
-  },[currentUser.id])
+    userChats[chatIndex].isSeen = true;
 
-  const handleSelect = async (chat) =>{
+    const userChatsRef = doc(db, "userchats", currentUser.id);
 
-    changeChat(chat.chatId,chat.user)
-
-  }
-
-  
+    try {
+      await updateDoc(userChatsRef, {
+        chats: userChats,
+      });
+      changeChat(chat.chatId, chat.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className='chatList'>
+    <div className="chatList">
       <div className="search">
         <div className="searchBar">
-          <img src="./search.png" alt="" />
-          <input type="text" placeholder="Search" />
+          <img
+            src="./search.png"
+            alt=""
+          />
+          <input
+            type="text"
+            placeholder="Search"
+          />
         </div>
-        <img src= {addMode ? "./minus.png" : "./plus.png"} alt="" className="add"
-        onClick={() => setAddMode((prev) => !prev)}
+        <img
+          src={addMode ? "./minus.png" : "./plus.png"}
+          alt=""
+          className="add"
+          onClick={() => setAddMode((prev) => !prev)}
         />
       </div>
-      {chats.map((chat) =>(
-      <div className="item" key={chat.chatId} onClick={()=>handleSelect(chat)}>
-        <img src={chat.user.avatar || "./avatar.png"} alt="" />
-        <div className="text">
-          <span>{chat.user.username}</span>
-          <p>{chat.lastMessage}</p>
+      {chats.map((chat) => (
+        <div
+          className="item"
+          key={chat.chatId}
+          onClick={() => handleSelect(chat)}
+          style={{
+            backgroundColor: chat?.isSeen ? "transparent" : "#5183fe",
+          }}>
+          <img
+            src={chat.user.avatar || "./avatar.png"}
+            alt=""
+          />
+          <div className="text">
+            <span>{chat.user.username}</span>
+            <p>{chat.lastMessage}</p>
+          </div>
         </div>
-      </div>
       ))}
-      
+
       {addMode && <AddUser />}
     </div>
-  )
-}
+  );
+};
 
-export default ChatList
+export default ChatList;
